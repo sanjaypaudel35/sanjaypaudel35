@@ -1,30 +1,35 @@
-name: Deploy to cPanel via SSH # The name of the workflow displayed in GitHub Actions
+name: Deploy to cPanel via SSH
 
-on: # Defines what events trigger this workflow
-  push: # Trigger on every 'push' event
-    branches: # Only for specific branches
-      - main # Only run when changes are pushed or merged into the 'main' branch
+on:
+  push:
+    branches:
+      - main
 
-jobs: # Groups together all the steps that run in the workflow
-  deploy: # Unique ID for this job
-    name: Upload to cPanel # Friendly name for the job displayed in the UI
-    runs-on: ubuntu-latest # The type of virtual machine the job will run on
+# Set environment variables for the whole workflow
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # Opt into Node.js 24 to avoid deprecation warnings
 
-    steps: # List of tasks to be executed sequentially
-      - name: Checkout Code # Descriptive name for the first step
-        uses: actions/checkout@v4 # Official GitHub Action to download your repository code into the runner
+jobs:
+  deploy:
+    name: Upload to cPanel
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Install SSH Key # Step to set up the secure connection
-        run: | # Allows running multiple shell commands in one step
-          mkdir -p ~/.ssh # Create the .ssh directory if it doesn't exist
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa # Copy the private key from GitHub Secrets to a file
+      - name: Install SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-        # Verify the server's identity to prevent manual prompts
 
-      - name: Deploy via rsync # The actual deployment step
-        run: | # Run the rsync command
-          rsync -avz --delete \ # -a (archive), -v (verbose), -z (compress) and delete files on server not in Git
+      - name: Deploy via rsync
+        run: |
+          # The backslash '\' must be the absolute last character on a line. 
+          # Placing comments after it (as done previously) breaks the command syntax.
+          rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }}" \
             --exclude '.git/' \
             --exclude '.github/' \
