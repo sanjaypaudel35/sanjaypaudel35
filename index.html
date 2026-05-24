@@ -36,18 +36,10 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   <style>
-    .variable {
-      color: #df3079;
-    }
-    .keyword {
-      color: #2e95d3;
-    }
-    .phpClass {
-      color:#f22c3d;
-    }
-    .editorText {
-      color: #00a67d;
-    }
+    .variable { color: #df3079; }
+    .keyword { color: #2e95d3; }
+    .phpClass { color:#f22c3d; }
+    .editorText { color: #00a67d; }
 
     .editable {
         display: inline-block;
@@ -55,7 +47,7 @@
         outline: none;
         cursor: text;
         position: relative;
-        padding-right: 2px; /* Add padding for cursor */
+        padding-right: 2px;
     }
     .editable::before {
         content: "|";
@@ -64,32 +56,26 @@
         right: 0;
         bottom: 0;
         margin: auto;
-        color: #000; /* Cursor color */
+        color: #000;
         animation: blink-caret 0.75s step-end infinite;
     }
     .output-section {
       background-color: black;
       display: none;
     }
-    .output-section p {
-      color: #777777;
-    }
+    .output-section p { color: #777777; }
     .propertyName {
       color: #625757;
       font-weight: bold;
       font-size: 20px
     }
-    .propertyValue {
-      font-size:20px;
-    }
+    .propertyValue { font-size:20px; }
 
     #output_section, #terminal_section {
         opacity: 1;
         transition: 0.8s ease-in-out;
     }
-    .skill_ul {
-      list-style: none;
-    }
+    .skill_ul { list-style: none; }
     .skill_ul li {
       padding-bottom: 8px;
       padding-top: 7px;
@@ -98,12 +84,215 @@
     }
 
     .skill_ul li:before {
-        content: "\f04b"; /* Unicode for the play icon from Font Awesome */
-        font-family: "Font Awesome 5 Free"; /* Font Awesome font family */
-        font-weight: 900; /* Font Awesome Free has different font weights */
+        content: "\f04b";
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
         color: #0563bb;
         font-size: 18px;
-        margin-right: 10px; /* Add space between icon and text */
+        margin-right: 10px;
+    }
+
+    /* Featured Work Hover Effects */
+    .project-card {
+      transition: all 0.3s ease-in-out;
+      border: 1px solid transparent;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+      border-color: #0563bb;
+    }
+    .project-card .view-link {
+      color: #0563bb;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 15px;
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+    .project-card:hover .view-link {
+      opacity: 1;
+      gap: 10px;
+    }
+
+    /* Horizontal Milestone Timeline */
+    :root {
+      --timeline-blue: #2563eb;
+      --timeline-purple: #7c3aed;
+      --timeline-pink: #ec4899;
+      --timeline-teal: #14b8a6;
+      --timeline-orange: #f59e0b;
+    }
+
+    .journey-section {
+      padding: 80px 0;
+      background: #f8fafc;
+      overflow: hidden;
+    }
+
+    .horizontal-timeline {
+      position: relative;
+      margin-top: 50px;
+    }
+
+    @media (min-width: 992px) {
+      .horizontal-timeline {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 30px;
+        min-height: 650px;
+        align-items: center;
+      }
+      .horizontal-timeline::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #cbd5e1;
+        z-index: 0;
+        transform: translateY(-50%);
+      }
+
+      /* Odd: Card Below Dot */
+      .timeline-step:nth-child(odd) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 320px;
+      }
+      .timeline-step:nth-child(odd) .step-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+      }
+
+      /* Even: Card Above Dot */
+      .timeline-step:nth-child(even) {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding-bottom: 320px;
+      }
+      .timeline-step:nth-child(even) .step-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+      }
+    }
+
+    .timeline-step {
+      position: relative;
+      text-align: center;
+    }
+
+    .step-number {
+      width: 45px;
+      height: 45px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border: 3px solid #cbd5e1;
+      transition: all 0.3s ease;
+    }
+
+    .timeline-step:hover .step-number {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    }
+
+    .step-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border-top: 5px solid #cbd5e1;
+      height: 100%;
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .timeline-step:hover .step-content {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .step-date {
+      display: block;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+
+    .step-company {
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .step-content p, .step-content li {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #475569;
+    }
+
+    /* Step Color Accents */
+    .step-blue .step-number { border-color: var(--timeline-blue); color: var(--timeline-blue); }
+    .step-blue .step-content { border-top-color: var(--timeline-blue); }
+    .step-blue .step-date, .step-blue .step-company { color: var(--timeline-blue); }
+
+    .step-purple .step-number { border-color: var(--timeline-purple); color: var(--timeline-purple); }
+    .step-purple .step-content { border-top-color: var(--timeline-purple); }
+    .step-purple .step-date, .step-purple .step-company { color: var(--timeline-purple); }
+
+    .step-pink .step-number { border-color: var(--timeline-pink); color: var(--timeline-pink); }
+    .step-pink .step-content { border-top-color: var(--timeline-pink); }
+    .step-pink .step-date, .step-pink .step-company { color: var(--timeline-pink); }
+
+    .step-teal .step-number { border-color: var(--timeline-teal); color: var(--timeline-teal); }
+    .step-teal .step-content { border-top-color: var(--timeline-teal); }
+    .step-teal .step-date, .step-teal .step-company { color: var(--timeline-teal); }
+
+    .step-orange .step-number { border-color: var(--timeline-orange); color: var(--timeline-orange); }
+    .step-orange .step-content { border-top-color: var(--timeline-orange); }
+    .step-orange .step-date, .step-orange .step-company { color: var(--timeline-orange); }
+
+    @media (max-width: 991px) {
+      .horizontal-timeline {
+        display: flex;
+        flex-direction: column;
+        padding-left: 20px;
+        border-left: 2px solid #cbd5e1;
+      }
+      .timeline-step { margin-bottom: 30px; text-align: left; }
+      .step-number { margin: 0 0 20px -45px; }
+      .step-content { margin-left: 10px; }
     }
   </style>
 </head>
@@ -118,8 +307,8 @@
       <ul>
         <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i><span>Home</span></a></li>
         <li><a href="#about"><i class="bi bi-person navicon"></i><span>About</span></a></li>
+        <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Work</span></a></li>
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i><span>Resume</span></a></li>
-        <!-- <li><a href="#portfolio"><i class="bi bi-images navicon"></i><span>Portfolio</span></a></li> -->
         <!-- <li><a href="#services"><i class="bi bi-hdd-stack navicon"></i><span>Services</span></a></li> -->
         <li><a href="#contact"><i class="bi bi-envelope navicon"></i><span>Contact</span></a></li>
       </ul>
@@ -137,7 +326,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-9">
             <h2 style = "font-size: 70px">Sanjay Paudel</h2>
-            <p>I'm <span class="typed" data-typed-items="Backend Developer, Laravel Developer">Backend Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+            <p>I'm <span class="typed" data-typed-items="Backend Developer, Laravel Developer, AI & Agentic Developer">Backend Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
             <div class="social-links">
               <!-- <a href="#"><i class="bi bi-twitter-x"></i></a> -->
               <a href="http://www.facebook.com/jaysan.poudel" target="_blank"><i class="bi bi-facebook"></i></a>
@@ -156,13 +345,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>About</h2>
-        <p style="opacity:0.7;font-size:18px">I have completed my bachelor in computer science and
-          information technology (Bsc.CSIT 2073-2077). Now I am
-          working as full time Laravel Api developer at hazesoft pvt.ltd. And
-          i am always seeking for new opportunity to enhance my skill and
-          experience into next level. My skill and expertise include html,
-          css, bootstrap, jquery, laravel. Besides the laravel i have also
-          fine understadning of Javascript and its library Reactjs as well.</p>
+        <p style="opacity:0.7;font-size:18px">Backend Engineer with 5+ years of experience building scalable, API-driven web applications and enterprise eCommerce systems using Laravel. Strong background in clean architecture, PSR-12, SOLID principles, and modern design patterns. Experienced with SQL/NoSQL databases, OAuth/SSO, Docker, CI/CD, payment and ERP integrations, and OpenAPI documentation. Currently pursuing a Master of ICT Research (Data Analytics major). Passionate about backend architecture, performance optimisation, and delivering reliable software solutions. Experienced in Agentic development.</p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -276,7 +459,7 @@
               <p>
                 <span class="propertyName">Experience:&nbsp;</span>
                 <span>&nbsp;&nbsp;</span>
-                <span class="propertyValue">3 Year +</span>
+                <span class="propertyValue">5 Year +</span>
               </p>
 
               <p>
@@ -288,13 +471,13 @@
               <p>
                 <span class="propertyName">Phone:&nbsp;</span>
                 <span>&nbsp;&nbsp;</span>
-                <span class="propertyValue">+977 9844785###</span>
+                <span class="propertyValue">+61 4#########</span>
               </p>
 
               <p>
                 <span class="propertyName">Address:&nbsp;</span>
                 <span>&nbsp;&nbsp;</span>
-                <span class="propertyValue">Kawasoti-08, Nawalpur, Nepal</span>
+                <span class="propertyValue">Merryland, Sydney, Australia</span>
               </p>
 
               <p>
@@ -337,10 +520,9 @@
                 <li>Php/Laravel</li>
                 <li>Mysql, Redis</li>
   
-                <li>Elastic Search</li>
+                <li>Elastic Search, Agentic Development (AI/RAG)</li>
   
                 <li>Git/Gitlab</li>
-                <li>Rest API, Postman</li>
                 <li>Rest API, Postman</li>
                 <li>HTML, CSS, Bootstrap, Jquery,
                   React, VueJs</li>
@@ -414,87 +596,152 @@
 
     </section><!-- /Skills Section -->
 
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
+    <!-- Featured Work Section -->
+    <section id="portfolio" class="portfolio section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
+        <h2>Featured Work</h2>
+        <p>Showcasing my latest projects in AI and Web Development</p>
       </div><!-- End Section Title -->
 
-      <div class="container">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Sumary</h3>
-
-            <div class="resume-item pb-0">
-              <h4>Sanjay Paudel</h4>
-              <p><em>Innovative and deadline-driven Backend Laravel Developer with 3+ years of experience designing and developing user-centered web applications from initial concept to final, polished deliverable. Proficient in Laravel, PHP, MySQL, and various APIs, with a strong background in crafting efficient and scalable backend solutions. Committed to delivering high-quality code and enhancing application performance, security, and reliability.</em></p>
-              <ul>
-                <li>Kawasoti-08, Nawapur, Nepal</li>
-                <li>jaysanpaudel35@gmail.com</li>
-              </ul>
-            </div><!-- Edn Resume Item -->
-
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>MCA (Master In computer application)</h4>
-              <h5 style = "color: green">(2021 – 2023)</h5>
-              <p><em>University: Indira Gandhi National Open University (IGNOU)</em></p>
-              <p>The Distance Master of Computer Application (MCA) course at IGNOU is a two-year postgraduate program for people who love making computer applications.
-                course structure includes programming, data structures, artificial intelligence, software engineering etc..
-              </p>
-            </div><!-- Edn Resume Item -->
-
-            <div class="resume-item">
-              <h4>B.Sc CSIT (Bachelor in Computer Science And Information Technology)</h4>
-              <h5 style = "color: green">(2015 – 2019)</h5>
-              <p><em>University: Tribhuvan University (TU)</em></p>
-              <p>The Bachelor of Science in Computer Science and Information Technology (BSc. CSIT) is a four-year study offered by Tribhuvan University that aims to educate students with a broad understanding of computer science and information technology.
-              </p>
-            </div><!-- Edn Resume Item -->
-
-          </div>
+        <div class="row gy-4">
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Professional Experience</h3>
-            <div class="resume-item">
-              <h4>Backend Api Developer (Laravel)</h4>
-              <h5 style = "color:green">(Aug 2022 – Present)</h5>
-              <p><em>Haze soft Pvt. Ltd, Sankhamul (Kathmandu) <a href="https://hazesoft.co/" target="_blank">website link</a></a></em></p>
-              <ul>
-                <li>Engaged and played a crucial role in an eCommerce project.</li>
-                <li>Exhibit advanced proficiency in cutting-edge technologies, including REST APIs,
-                  Docker, Laravel 10, Mysql Database, Redis Cache server, Elastic Search etc.
-                  Adherence to coding standards such as PSR12 and different design patterns such as Repository service pattern, Strategy and Factory design pattern to achieve
-                  decoupled modular architecture.</li>
-                <li>Utilizing Laravel's queue system for handling tasks that require substantial
-                  processing time, with experience in chaining and batch processing for efficient
-                  task execution. Proficient in task scheduling and working with queue system
-                  within the Laravel framework.</li>
+            <div class="service-item project-card item-cyan position-relative shadow p-4" style="border-radius: 10px; background: #fff; height: 100%;">
+              <div class="icon mb-3">
+                <i class="bi bi-robot" style="font-size: 2rem; color: #0563bb;"></i>
+              </div>
+              <a href="https://github.com/sanjaypaudel35/rag-app/tree/feature/development" target="_blank" class="stretched-link">
+                <h3>RAGBot: Intelligent AI Assistant</h3>
+              </a>
+              <p>A sophisticated Retrieval-Augmented Generation (RAG) platform designed to build custom AI chatbots grounded in private, domain-specific data.</p>
+              <ul class="mt-3">
+                <li><strong>Tech:</strong> Laravel 13, Livewire 4, Flux UI, PostgreSQL (pgvector), PHP 8.3, OpenAI/Anthropic.</li>
+                <li><strong>Features:</strong> Automated ingestion, Semantic Search, Multi-Bot Management.</li>
               </ul>
-            </div><!-- Edn Resume Item -->
+              <div class="view-link">
+                View Project <i class="bi bi-arrow-right"></i>
+              </div>
+            </div>
+          </div>
 
-            <div class="resume-item">
-              <h4>Web Developer (Full Stack)</h4>
-              <h5 style = "color:green">(Sep 2020 – June 2022)</h5>
-              <p><em>Six sigma Inc – Mid Baneshwor, Kathmandu <a href="https://sixsigmainc.com.np/ target="_blank">website link</a></a></em></p>
-              <ul>
-                <li>Engaged in multiple projects involving technologies such as Laravel, Vue.js,
-                  jQuery, HTML, CSS, and Bootstrap.</li>
-                  <li>Worked on management system, education portal, organization website etc.</li>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item project-card item-orange position-relative shadow p-4" style="border-radius: 10px; background: #fff; height: 100%;">
+              <div class="icon mb-3">
+                <i class="bi bi-film" style="font-size: 2rem; color: #0563bb;"></i>
+              </div>
+              <a href="https://thecineview.com/" target="_blank" class="stretched-link">
+                <h3>The CineView</h3>
+              </a>
+              <p>A comprehensive community-driven platform dedicated to the Nepali film industry, offering a centralized hub for movie discovery and audience feedback.</p>
+              <ul class="mt-3">
+                <li><strong>Features:</strong> User Ratings & Reviews, Movie Database, Theater Integration (QFX), Web Series Coverage.</li>
+                <li><strong>Purpose:</strong> Primary digital destination for Nepali cinema enthusiasts.</li>
               </ul>
-            </div><!-- Edn Resume Item -->
-
+              <div class="view-link">
+                View Project <i class="bi bi-arrow-right"></i>
+              </div>
+            </div>
           </div>
 
         </div>
 
       </div>
 
-    </section><!-- /Resume Section -->
+    </section><!-- /Featured Work Section -->
+
+    <!-- Resume Section -->
+    <!-- Career Journey Section -->
+    <section id="resume" class="journey-section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Career Journey</h2>
+        <p>A detailed timeline of my professional growth and academic milestones</p>
+      </div>
+
+      <div class="container">
+        <!-- Profile Summary Card -->
+        <div class="row justify-content-center mb-4" data-aos="fade-up">
+          <div class="col-lg-11">
+            <div class="step-content" style="border-left: 5px solid var(--timeline-blue); border-top: none;">
+              <h3 class="step-title" style="font-size: 22px;">Sanjay Paudel</h3>
+              <p class="mt-2"><em>Backend Engineer with 5+ years of experience building scalable, API-driven web applications and enterprise eCommerce systems using Laravel. Experienced in Agentic development and currently pursuing a Master of ICT Research (Data Analytics major).</em></p>
+              <div class="d-flex gap-4 mt-2 text-muted" style="font-size: 13px;">
+                <span><i class="bi bi-geo-alt"></i> Merryland, Sydney, Australia</span>
+                <span><i class="bi bi-envelope"></i> jaysanpaudel35@gmail.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="horizontal-timeline" data-aos="fade-up">
+          
+          <!-- Milestone 01: Bachelor (Below) -->
+          <div class="timeline-step step-blue">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <span class="step-date">2015 – 2019</span>
+              <h3 class="step-title">Educational Foundation</h3>
+              <span class="step-company">B.Sc CSIT @ Tribhuvan University (TU)</span>
+              <p>The Bachelor of Science in Computer Science and Information Technology (BSc. CSIT) is a four-year study offered by Tribhuvan University that aims to educate students with a broad understanding of computer science and information technology.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 02: Six Sigma Intern (Above) -->
+          <div class="timeline-step step-purple">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <span class="step-date">Sep 2020 – 2021</span>
+              <h3 class="step-title">Professional Launchpad</h3>
+              <span class="step-company">Intern @ <a href="https://sixsigmainc.com.np/" target="_blank">Six sigma Inc</a></span>
+              <p>Engaged in multiple projects involving technologies such as Laravel, Vue.js, jQuery, HTML, CSS, and Bootstrap. Worked on management systems, education portals, and organization websites.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 03: Six Sigma Full Time (Below) -->
+          <div class="timeline-step step-pink">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <span class="step-date">2021 – 2022</span>
+              <h3 class="step-title">Continued Growth</h3>
+              <span class="step-company">Full Stack Developer @ Six Sigma Inc</span>
+              <p>Transitioned to a full-time role, taking on greater responsibilities in developing production-grade web applications and contributing to the complete software development lifecycle.</p>
+            </div>
+          </div>
+
+          <!-- Milestone 04: Hazesoft & MCA (Above) -->
+          <div class="timeline-step step-teal">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <span class="step-date">2022 – 2024</span>
+              <h3 class="step-title">Expertise & Specialization</h3>
+              <div class="mb-2">
+                <span class="step-company"><a href="https://hazesoft.co/" target="_blank">Haze soft Pvt. Ltd</a>, Sankhamul (Kathmandu)</span>
+                <p class="mb-0" style="font-size: 11px;">Engaged and played a crucial role in an eCommerce project. Exhibit advanced proficiency in cutting-edge technologies, including REST APIs, Docker, Laravel 10, Mysql Database, Redis Cache server, Elastic Search etc. Adherence to coding standards such as PSR12 and different design patterns such as Repository service pattern, Strategy and Factory design pattern to achieve decoupled modular architecture. Utilizing Laravel's queue system for handling tasks that require substantial processing time, with experience in chaining and batch processing for efficient task execution. Proficient in task scheduling and working with queue system within the Laravel framework. <strong>Projects: Ecommerce</strong></p>
+              </div>
+              <div class="border-top pt-2">
+                <span class="step-company">MCA @ IGNOU</span>
+                <p class="mb-0" style="font-size: 11px;">A two-year postgraduate program for people who love making computer applications. Course structure includes programming, data structures, artificial intelligence, software engineering etc.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 05: Australia (Below) -->
+          <div class="timeline-step step-orange">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <span class="step-date">2024 – Present</span>
+              <h3 class="step-title">Global Academic Pursuit</h3>
+              <span class="step-company">Master of ICT Research (Analytics Major)</span>
+              <p>A research-based postgraduate program focused on advanced ICT study and industry-driven research. Offers core and elective streams including Data Analytics, Networking, and Telecommunications. Currently pursuing the Data Analytics stream with emphasis on statistical modelling, machine learning, and data-driven decision-making in <strong>Sydney, Australia</strong>.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- /Career Journey Section -->
 
     <!-- Portfolio Section -->
     <!-- <section id="portfolio" class="portfolio section">
@@ -744,7 +991,7 @@
                 <i class="bi bi-geo-alt flex-shrink-0"></i>
                 <div>
                   <h3>Address</h3>
-                  <p>Kawasoti-08, Nawapur, Nepal</p>
+                  <p>Merryland, Sydney, Australia</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -752,7 +999,7 @@
                 <i class="bi bi-telephone flex-shrink-0"></i>
                 <div>
                   <h3>Call Us</h3>
-                  <p>+977 98########</p>
+                  <p>+61 4#########</p>
                 </div>
               </div><!-- End Info Item -->
 
