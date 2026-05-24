@@ -25,6 +25,10 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Test SSH Connection
+        run: |
+          ssh -v -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }} -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connection Successful!'"
+
       - name: Deploy via rsync
         run: |
           # 1. Removed '--delete' to prevent wiping out files on your server that aren't in Git.
