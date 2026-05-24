@@ -5,9 +5,8 @@ on:
     branches:
       - main
 
-# Set environment variables for the whole workflow
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # Opt into Node.js 24 to avoid deprecation warnings
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   deploy:
@@ -21,20 +20,24 @@ jobs:
       - name: Install SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          # Use printf to ensure the key has a proper trailing newline
+          printf "%s\n" "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          # Add the host to known_hosts to prevent verification prompts
+          ssh-keyscan -p ${{ secrets.SSH_PORT || 22 }} -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Test SSH Connection
         run: |
-          ssh -v -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }} -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connection Successful!'"
+          # Added PubkeyAcceptedAlgorithms to support older RSA signatures if needed
+          ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }} \
+            -o StrictHostKeyChecking=no \
+            -o PubkeyAcceptedAlgorithms=+ssh-rsa \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'SSH Connection Successful!'"
 
       - name: Deploy via rsync
         run: |
-          # 1. Removed '--delete' to prevent wiping out files on your server that aren't in Git.
-          # 2. Added more '--exclude' patterns for common cPanel/WordPress files you want to keep.
           rsync -avz \
-            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }}" \
+            -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }} -o PubkeyAcceptedAlgorithms=+ssh-rsa" \
             --exclude '.git/' \
             --exclude '.github/' \
             --exclude 'node_modules/' \
