@@ -27,12 +27,18 @@ jobs:
 
       - name: Deploy via rsync
         run: |
-          # The backslash '\' must be the absolute last character on a line. 
-          # Placing comments after it (as done previously) breaks the command syntax.
-          rsync -avz --delete \
+          # 1. Removed '--delete' to prevent wiping out files on your server that aren't in Git.
+          # 2. Added more '--exclude' patterns for common cPanel/WordPress files you want to keep.
+          rsync -avz \
             -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT || 22 }}" \
             --exclude '.git/' \
             --exclude '.github/' \
             --exclude 'node_modules/' \
             --exclude 'cpanel_deploy_key*' \
+            --exclude 'wp-config.php' \
+            --exclude '.htaccess' \
+            --exclude 'error_log' \
+            --exclude 'cgi-bin/' \
+            --exclude '.well-known/' \
+            --exclude 'wp-content/uploads/' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.REMOTE_PATH }}
